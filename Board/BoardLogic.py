@@ -90,6 +90,9 @@ class BasicBoardLogic:
     def isEmpty(self):
         return self._number_of_turn == 0
 
+    def isOver(self):
+        return self.getWinningState() != 0 or self.isFull()
+
     def isSquareEmpty(self, row, col):
         if self.isValidateRowCol(row, col):
             return self._squares[row][col] == 0
