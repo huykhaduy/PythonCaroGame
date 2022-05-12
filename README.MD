@@ -1,5 +1,5 @@
 # Đồ án python: Xây dựng ứng dụng game caro bằng thư viện pygame
-Họ và tên: Huỳnh Khánh Duy (MSSV: 3120410088)
+Họ và tên: Huỳnh Khánh Duy (MSSV: 3120410088)<br>
 Các chức năng:
 - Chọn giao diện bàn cờ (đen, trắng)
 - Chọn kích cỡ bàn cờ (3x3, 10x10, 15x15)
