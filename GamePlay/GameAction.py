@@ -26,7 +26,7 @@ class GameAction:
             self.panel.showWinningTitle("Player " + str(self.playerTurn) + " won !")
             self.panel.menu.draw(self.screen)
             self.is_running = False
-        if self.board.isFull():
+        if self.board.isFull() and boardState == 0:
             self.is_running = False
             self.panel.showWinningTitle("Draw game !")
         self.nexTurn()

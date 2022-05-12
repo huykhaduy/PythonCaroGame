@@ -141,3 +141,42 @@ class AdvancedBoardLogic(BasicBoardLogic):
             if opposite_point >= max_point:
                 next_mark = (row, col)
         return next_mark
+
+    def getSquaresHasPointLargeThan(self, selfPlayer, oppositePlayer, minPoint):
+        emptySqr = self.getEmptySquares()
+        mySqr = list()
+        for row,col in emptySqr:
+            if self.getScoreOfPosition(selfPlayer, row, col) > minPoint or self.getScoreOfPosition(oppositePlayer, row, col) > minPoint:
+                mySqr.append((row, col))
+        return mySqr
+
+    def getMostBenefitEnhance(self, selfPlayer, oppositePlayer):
+        if self.isFull():
+            return -1, -1
+        emptySqr = self.getEmptySquares()
+        max_point = 0
+        get_self_point = 0
+        get_op_point = 0
+        next_mark = emptySqr[0]
+        for row, col in emptySqr:
+            self_point = self.getScoreOfPosition(selfPlayer, row, col)
+            opposite_point = self.getScoreOfPosition(oppositePlayer, row, col)
+            max_point = max(max_point, self_point, opposite_point)
+            if self_point >= max_point:
+                if self_point == get_self_point:
+                    if opposite_point > get_op_point:
+                        get_op_point = opposite_point
+                        next_mark = (row, col)
+                else:
+                    get_self_point = self_point
+                    next_mark = (row, col)
+
+            if opposite_point >= max_point:
+                if opposite_point == get_op_point:
+                    if self_point > get_self_point:
+                        get_self_point = self_point
+                        next_mark = (row, col)
+                else:
+                    get_op_point = opposite_point
+                    next_mark = (row, col)
+        return next_mark

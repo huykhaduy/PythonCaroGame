@@ -15,7 +15,7 @@ if __name__ == "__main__":
             print(playerId)
             if playerId == ai.userPlayer:
                 if board.isEmpty():
-                    row, col = ai.easyLevel(board)
+                    row, col = ai.randomLevel(board)
                     board.markSquare(playerId, row, col)
                     print(f"{playerId} has move {row},{col}")
                 else:
