@@ -64,7 +64,7 @@ class BasicBoardLogic:
             self._winningLine = (startPoint, endPoint)
         return isWinning, count
 
-    # Get empty squares that didn't marked by player
+    # Get empty squares that didn't mark by player
     def getEmptySquares(self):
         emptySqrs = []
         [emptySqrs.append((row, col)) for row in range(self.board_row)
@@ -136,9 +136,9 @@ class AdvancedBoardLogic(BasicBoardLogic):
             self_point = self.getScoreOfPosition(selfPlayer, row, col)
             opposite_point = self.getScoreOfPosition(oppositePlayer, row, col)
             max_point = max(max_point, self_point, opposite_point)
-            if self_point >= max_point:
-                next_mark = (row, col)
             if opposite_point >= max_point:
+                next_mark = (row, col)
+            if self_point >= max_point:
                 next_mark = (row, col)
         return next_mark
 

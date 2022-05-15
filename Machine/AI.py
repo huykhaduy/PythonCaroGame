@@ -12,8 +12,7 @@ class AI:
         self.userPlayer = userPlayer
         self.minDepth = 0
 
-    def minimax_empty_sqrs(self, board, isMaximizing, alpha, beta, depth):
-        self.minDepth += 1
+    def minimax_update(self, board, isMaximizing, alpha, beta, depth):
         if board.isFull() or depth == 0:
             return 0, None
 
@@ -26,14 +25,11 @@ class AI:
         if isMaximizing:
             maxEval = -100
             bestMove = None
-            # emptySqrs = board.getSquaresHasPointLargeThan(self.userPlayer, self.aiPlayer, 2)
-            # if len(emptySqrs) == 0:
-            #     emptySqrs = board.getEmptySquares()
             emptySqrs = board.getEmptySquares()
             for (row, col) in emptySqrs:
                 tempBoard = copy.deepcopy(board)
                 tempBoard.markSquare(self.userPlayer, row, col)
-                myEval = self.minimax_empty_sqrs(tempBoard, False, alpha, beta, depth - 1)[0]
+                myEval = self.minimax_update(tempBoard, False, alpha, beta, depth - 1)[0]
                 if myEval > maxEval:
                     maxEval = myEval
                     bestMove = (row, col)
@@ -46,13 +42,10 @@ class AI:
             minEval = 100
             bestMove = None
             emptySqrs = board.getEmptySquares()
-            # emptySqrs = board.getSquaresHasPointLargeThan(self.userPlayer, self.aiPlayer, 2)
-            # if len(emptySqrs) == 0:
-            #     emptySqrs = board.getEmptySquares()
             for (row, col) in emptySqrs:
                 tempBoard = copy.deepcopy(board)
                 tempBoard.markSquare(self.aiPlayer, row, col)
-                myEval = self.minimax_empty_sqrs(tempBoard, True, alpha, beta, depth - 1)[0]
+                myEval = self.minimax_update(tempBoard, True, alpha, beta, depth - 1)[0]
                 if myEval < minEval:
                     minEval = myEval
                     bestMove = (row, col)
@@ -132,7 +125,7 @@ class AI:
         print(main_board.getMostBenefitSqrs(self.aiPlayer, self.userPlayer))
         if self.aiLevel == 1:
             # print("Easy")
-            return self.mostMoveEnhanced(main_board)
+            return self.mostMove(main_board)
         elif self.aiLevel == 2:
             # print("Medium")
             return self.mediumLevel(main_board)
@@ -151,6 +144,9 @@ class AI:
         move = emptySqrs[random.randint(0, len(emptySqrs) - 1)]
         return move
 
+    def easyLevel(self, main_board):
+        return self.mostMove(main_board)
+
     def mediumLevel(self, main_board):
         if main_board.getNumberOfTurn() < 2:
             move = self.randomLevel(main_board)
@@ -159,8 +155,7 @@ class AI:
         return move
 
     def hardLevel(self, main_board):
-        myEval, move = self.minimax_empty_sqrs(main_board, False, -100, 100, 1000)
-        # print(f'AI has chosen to mark the square in pos {move} with an eval of: {myEval}')
+        myEval, move = self.minimax_update(main_board, False, -100, 100, 1000)
         return move
 
 # class AIThreading(Thread):

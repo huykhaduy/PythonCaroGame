@@ -86,7 +86,7 @@ class Menu:
                              border_color=(3, 160, 253),
                              background_color=(0, 14, 51),
                              ).translate(0, 150)
-        self.button = self.menu.add.button('PLAYER VS PLAYER (PVP)', action=self.initPVPGame,
+        self.menu.add.button('PLAYER VS PLAYER (PVP)', action=self.initPVPGame,
                                            font_color=(253, 0, 143),
                                            font_name=pygame_menu.font.FONT_FIRACODE_BOLD,
                                            align=pygame_menu.locals.ALIGN_CENTER,
@@ -148,5 +148,5 @@ class Menu:
         game = GameAction(self.screen, gameTheme, self.loop, boardSize)
         game.runGameAI(aiLevel)
 
-    def loop(self):
+    def run(self):
         self.menu.mainloop(self.screen)

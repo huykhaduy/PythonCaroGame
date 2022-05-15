@@ -20,6 +20,7 @@ class GameAction:
         self.menu = menu
         self.panel = GamePanel(screen, theme, self.resetGame, self.menu, boardSize)
 
+    # Thực hiện thao tác đánh cờ
     def move(self, row, col):
         boardState = self.board.markSquare(self.playerTurn, row, col)
         if boardState != 0:
@@ -31,15 +32,18 @@ class GameAction:
             self.panel.showWinningTitle("Draw game !")
         self.nexTurn()
 
+    # Chuyển đến lượt tiếp theo
     def nexTurn(self):
         self.playerTurn = self.playerTurn % 2 + 1
 
+    # Kiểm tra game kết thúc
     def isOver(self):
         if self.board.getWinningState() != 0 or self.board.isFull():
             self.is_running = False
             return True
         return False
 
+    # Reset game
     def resetGame(self):
         self.playerTurn = 1
         self.is_running = True
@@ -48,6 +52,7 @@ class GameAction:
         self.panel = GamePanel(self.screen, self.theme, self.resetGame, self.menu, self.row)
         self.panel.showWinningTitle(" " * 30)
 
+    # Chơi với người
     def runGamePVP(self):
         while True:
             events = pygame.event.get()
@@ -66,6 +71,7 @@ class GameAction:
                     pygame.display.update()
             pygame.display.update()
 
+    # Chơi với máy
     def runGameAI(self, aiLevel=1):
         ai = AI(aiLevel)
         while True:
