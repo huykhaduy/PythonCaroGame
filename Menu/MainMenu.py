@@ -150,3 +150,6 @@ class Menu:
 
     def run(self):
         self.menu.mainloop(self.screen)
+
+    def loop(self):
+        self.menu.mainloop(self.screen)
